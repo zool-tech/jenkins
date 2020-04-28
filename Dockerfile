@@ -20,7 +20,7 @@ RUN	set -eux;\
 # java install params
 	JAVA_DOWNLOAD_URL=https://github.com/AdoptOpenJDK/openjdk8-upstream-binaries/releases/download/jdk8u252-b09/OpenJDK8U-jdk_x64_linux_8u252b09.tar.gz;\
 # jinkins install params
-	JENKINS_VERSION=2.222.1;\
+	JENKINS_VERSION=2.222.3;\
 	JENKINS_USER=jenkins;\
 	JENKINS_UID=60001;\
 	JENKINS_INSTALL_DIR=/opt/jenkins;\
@@ -33,7 +33,7 @@ RUN	set -eux;\
 # INSTALL OPENJDK
 	wget -q -O openjdk.tgz ${JAVA_DOWNLOAD_URL};\
 	tar --extract --file openjdk.tgz --directory "${JAVA_HOME}" --strip-components 1;\
-	rm openjdk.tgz "${JAVA_HOME}/src.zip" && rm -rf "${JAVA_HOME}/demo" "${JAVA_HOME}/sample";\
+	rm -rf openjdk.tgz "${JAVA_HOME}/src.zip" "${JAVA_HOME}/demo" "${JAVA_HOME}/sample" "${JAVA_HOME}/man";\
 # update "cacerts" bundle to use Debian's CA certificate
 	mkdir -p /etc/ca-certificates/update.d;\
 	{\
