@@ -18,12 +18,14 @@ RUN	set -eux;\
 	DEVOPS_GID=60000;\
 	START_SCRIPT=/opt/startSrvs.sh;\
 # java install params
-	JAVA_DOWNLOAD_URL=https://github.com/AdoptOpenJDK/openjdk8-upstream-binaries/releases/download/jdk8u252-b09/OpenJDK8U-jdk_x64_linux_8u252b09.tar.gz;\
+	# mirror https://mirror.tuna.tsinghua.edu.cn/AdoptOpenJDK/8/jdk/x64/linux/OpenJDK8U-jdk_x64_linux_hotspot_8u275b01.tar.gz;\
+	JAVA_DOWNLOAD_URL=https://github.com/AdoptOpenJDK/openjdk8-upstream-binaries/releases/download/jdk8u275-b01/OpenJDK8U-jdk_x64_linux_8u275b01.tar.gz;\
 # jinkins install params
-	JENKINS_VERSION=2.222.1;\
+	JENKINS_VERSION=2.263.1;\
 	JENKINS_USER=jenkins;\
 	JENKINS_UID=60001;\
 	JENKINS_INSTALL_DIR=/opt/jenkins;\
+	#mirror https://mirrors.tuna.tsinghua.edu.cn/jenkins/war-stable/${JENKINS_VERSION}/jenkins.war;\
 	JENKINS_DOWNLOAD_URL=https://repo.jenkins-ci.org/public/org/jenkins-ci/main/jenkins-war/${JENKINS_VERSION}/jenkins-war-${JENKINS_VERSION}.war;\
 # INIT
 	mkdir -p "${JAVA_HOME}" "${JENKINS_INSTALL_DIR}";\
@@ -33,7 +35,7 @@ RUN	set -eux;\
 # INSTALL OPENJDK
 	wget -q -O openjdk.tgz ${JAVA_DOWNLOAD_URL};\
 	tar --extract --file openjdk.tgz --directory "${JAVA_HOME}" --strip-components 1;\
-	rm openjdk.tgz "${JAVA_HOME}/src.zip" && rm -rf "${JAVA_HOME}/demo" "${JAVA_HOME}/sample";\
+	rm -rf openjdk.tgz "${JAVA_HOME}/src.zip" "${JAVA_HOME}/demo" "${JAVA_HOME}/sample" "${JAVA_HOME}/man";\
 # update "cacerts" bundle to use Debian's CA certificate
 	mkdir -p /etc/ca-certificates/update.d;\
 	{\
